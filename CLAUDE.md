@@ -115,6 +115,17 @@ Usa **`@nuxt/icon` con la colección Lucide** (local, `@iconify-json/lucide`). N
 - **Visor de fotos:** está disponible para **todos** los usuarios. Se usa con `useImageViewer().openViewer(photos, index, title)` o el componente `PhotoThumb` (abre el visor al hacer clic; usa `:zoomable="false"` si va dentro de un enlace).
 - `useAsyncData` siempre debe devolver un valor (no `undefined`). Si falla, muestra el error en la UI; nunca te quedes en ceros sin avisar.
 
+## Deploy
+
+- **Stack de Portainer:** `shelfsync-erp`, desde git (`main`, `docker-compose.yml`). La imagen se construye en el server y no hay registry. El redeploy es manual.
+- **Nombres:** contenedor y servicio `shelfsync-erp`, puerto 3000. **No uses `shelfsync-web`**, que es la PWA de la app móvil.
+- **Red y puertos:** red externa `tunnel` (compartida con cloudflared y shelfsync-api). No se publican puertos en el host.
+- **Cloudflare:** las rutas se configuran en el dashboard de Cloudflare (tunnel `home-server`) y apuntan a `http://shelfsync-erp:3000`.
+- **Variables en runtime** (no requieren rebuild):
+  - `NUXT_PUBLIC_API_BASE`: URL pública, para el navegador y las fotos.
+  - `NUXT_API_BASE_SERVER`: la usa el SSR, en `http://shelfsync-api:4000`. En `plugins/api.ts`, el servidor la prefiere sobre la pública.
+- **Antes de tocar el Dockerfile:** el `npm ci` usa `--ignore-scripts`, porque el postinstall `nuxt prepare` necesita el código fuente.
+
 ## Cómo probar con datos reales
 
 - El API local debe estar en `:4000`; usuarios: `fmorales`, `fvasto`, `cguevara`.
