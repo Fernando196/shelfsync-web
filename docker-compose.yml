@@ -1,0 +1,20 @@
+services:
+  shelfsync-erp:
+    build: .
+    image: shelfsync-erp:latest
+    # "shelfsync-web" ya lo usa la PWA de la app móvil
+    container_name: shelfsync-erp
+    restart: unless-stopped
+    environment:
+      # URL pública del API: la usan el navegador y las fotos (/uploads)
+      - NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE:-https://shelfsync-api.fernandomorales.dev}
+      # El SSR habla con el API por la red interna, sin salir a Cloudflare
+      - NUXT_API_BASE_SERVER=${NUXT_API_BASE_SERVER:-http://shelfsync-api:4000}
+    # Misma red que cloudflared y shelfsync-api: el tunnel llega a
+    # http://shelfsync-erp:3000 sin publicar puertos en el host.
+    networks:
+      - tunnel
+
+networks:
+  tunnel:
+    external: true
