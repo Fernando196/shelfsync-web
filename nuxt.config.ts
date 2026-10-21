@@ -20,6 +20,9 @@ export default defineNuxtConfig({
     plugins: ['relativeTime'],
   },
   runtimeConfig: {
+    // Host del API para las peticiones del SSR (red interna de Docker, ej. http://shelfsync-api:4000).
+    // Vacío = usa apiBase. Override: NUXT_API_BASE_SERVER
+    apiBaseServer: '',
     public: {
       // Host del API sin /api (las fotos se sirven en <host>/uploads). Override: NUXT_PUBLIC_API_BASE
       apiBase: 'http://localhost:4000',

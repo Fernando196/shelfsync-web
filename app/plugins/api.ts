@@ -7,8 +7,11 @@ export default defineNuxtPlugin((nuxtApp) => {
   // justo después del login (Nuxt sincroniza refs de la misma cookie de forma asíncrona)
   const auth = () => useAuthStore(nuxtApp.$pinia as Pinia)
 
+  // En el servidor se prefiere la red interna; el navegador siempre usa la URL pública
+  const apiHost = (import.meta.server && config.apiBaseServer) || config.public.apiBase
+
   const api = $fetch.create({
-    baseURL: `${config.public.apiBase}/api`,
+    baseURL: `${apiHost}/api`,
     onRequest({ options }) {
       const token = auth().token
       if (!token) return
