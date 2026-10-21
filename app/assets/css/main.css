@@ -1,0 +1,158 @@
+/* assets/css/main.css */
+@import 'tailwindcss';
+
+@theme {
+  /* Primario — Slate (marca ShelfSync) */
+  --color-primary-light: #f1f5f9;
+  --color-primary: #334155;
+  --color-primary-dark: #1e293b;
+  --color-primary-darker: #0f172a;
+
+  /* Acento / CTA — Emerald */
+  --color-accent-light: #ecfdf5;
+  --color-accent: #059669;
+  --color-accent-dark: #047857;
+  --color-accent-darker: #065f46;
+
+  --color-surface: #ffffff;
+  --color-surface-hover: #f8fafc;
+
+  /* Background */
+  --color-menu-bg: #ffffff;
+  --color-subtle-bg: #f8fafc;
+  --color-content-bg: #f8fafc;
+
+  --color-text: #0f172a;
+  --color-text-subtle: #64748b;
+  --color-muted: #475569;
+  --color-muted-bg: #f1f5f9;
+  --color-subtle: #64748b;
+  --color-faint: #94a3b8;
+
+  /* Border */
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  --color-info: #4338ca;
+  --color-info-bg: #eef2ff;
+  --color-success: #047857;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #b45309;
+  --color-warning-bg: #fffbeb;
+  --color-error: #e11d48;
+  --color-error-bg: #fff1f2;
+  --color-error-text: #be123c;
+
+  /* 📦 Estatus de items (mismos tonos que la app móvil) */
+  --color-status-neutral: #475569;
+  --color-status-neutral-bg: #f1f5f9;
+  --color-status-amber: #b45309;
+  --color-status-amber-bg: #fffbeb;
+  --color-status-indigo: #4338ca;
+  --color-status-indigo-bg: #eef2ff;
+  --color-status-emerald: #047857;
+  --color-status-emerald-bg: #ecfdf5;
+  --color-status-rose: #be123c;
+  --color-status-rose-bg: #fff1f2;
+
+  --spacing-safe-bottom: env(safe-area-inset-bottom);
+
+  --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.04);
+  --shadow-sm: 0 1px 3px rgb(15 23 42 / 0.06), 0 1px 2px rgb(15 23 42 / 0.04);
+  --shadow-md: 0 4px 12px rgb(15 23 42 / 0.06), 0 2px 4px rgb(15 23 42 / 0.04);
+  --shadow-lg: 0 12px 32px rgb(15 23 42 / 0.1), 0 4px 8px rgb(15 23 42 / 0.05);
+
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-content-bg);
+}
+
+/* Buttons */
+.btn {
+  @apply border-border bg-surface text-text inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-solid px-3 py-2 text-[13px] font-medium text-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+}
+.btn:hover:not(:disabled) {
+  @apply bg-surface-hover border-border-strong;
+}
+.btn-primary {
+  @apply bg-accent border-accent text-white;
+}
+.btn-primary:hover:not(:disabled) {
+  @apply bg-accent-dark border-accent-dark;
+}
+.btn-dark {
+  @apply bg-primary border-primary text-white;
+}
+.btn-dark:hover:not(:disabled) {
+  @apply bg-primary-dark border-primary-dark;
+}
+.btn-danger {
+  @apply border-error bg-error text-white;
+}
+.btn-danger:hover:not(:disabled) {
+  @apply border-error-text bg-error-text;
+}
+.btn-sm {
+  @apply rounded-lg px-2 py-1 text-xs;
+}
+.btn-ghost {
+  @apply border-transparent bg-transparent shadow-none;
+}
+.btn-icon {
+  @apply text-subtle hover:text-text flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-slate-100;
+}
+
+/* Cards */
+.card {
+  @apply border-border rounded-2xl border bg-white;
+}
+
+/* Badges */
+.badge {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-transparent px-2 py-0.5 text-[11.5px] font-medium whitespace-nowrap;
+}
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.9;
+}
+.badge-neutral {
+  @apply bg-status-neutral-bg text-status-neutral;
+}
+.badge-amber {
+  @apply bg-status-amber-bg text-status-amber;
+}
+.badge-indigo {
+  @apply bg-status-indigo-bg text-status-indigo;
+}
+.badge-emerald {
+  @apply bg-status-emerald-bg text-status-emerald;
+}
+.badge-rose {
+  @apply bg-status-rose-bg text-status-rose;
+}
+
+/* Inputs */
+.input-label-muted {
+  @apply text-muted truncate text-[12.5px] font-medium whitespace-nowrap;
+}
+.input-content {
+  @apply border-border focus:border-accent focus:ring-accent/15 mt-1.5 w-full rounded-xl border bg-white px-3 py-2 transition-shadow outline-none focus:ring-4;
+}
+.input-content:disabled {
+  @apply bg-muted-bg text-subtle cursor-not-allowed;
+}
+.input-error {
+  @apply text-error-text mt-1 text-xs;
+}
